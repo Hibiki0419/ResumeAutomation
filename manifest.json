@@ -1,0 +1,26 @@
+{
+    "name": "Dynamic Form Filler", 
+    "version": "1.0",
+    "manifest_version": 3, 
+    "description": "ユーザーが入力した値をフォームに自動的に入力する拡張機能",
+    "permissions": [
+        "storage"
+    ],
+    "host_permissions": [
+        "<all_urls>"
+    ],
+    "background": {
+      "service_worker": "background.js"
+    },
+    "content_scripts": [
+      {
+        "matches": [
+            "<all_urls>"
+        ],
+        "js": ["contentScript.js"]
+      }
+    ],
+    "action": {
+      "default_popup": "popup.html" 
+    }
+}

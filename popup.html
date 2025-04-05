@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>Dynamic Form Filler</title>
+  <style>
+    body {
+      margin: 16px;
+      font-family: sans-serif;
+      width: 300px;
+    }
+    label {
+      display: block;
+      margin-top: 8px;
+    }
+    input[type="text"] {
+      width: 200px;
+      margin-bottom: 8px;
+    }
+    button {
+      margin-top: 16px;
+      padding: 6px 12px;
+      cursor: pointer;
+    }
+    hr {
+      margin-top: 12px;
+      margin-bottom: 12px;
+    }
+  </style>
+</head>
+<body>
+  <h1>フォーム自動入力設定</h1>
+
+  <!-- 自動入力を有効/無効にするチェックボックス -->
+  <label>
+    <input type="checkbox" id="autoFillEnabled" />
+    自動入力を有効にする
+  </label>
+    <!-- jqTransformCheckbox ON/OFF -->
+    <label>
+        <input type="checkbox" id="adch" name="adch"/>
+        休暇中の連絡先が現住所と同じ
+    </label>
+
+  <hr />
+
+  <h2>氏名/フリガナ</h2>
+  <!-- 氏名 -->
+  <label>漢字の姓
+    <input type="text" id="kname1" placeholder="例: 山田" />
+  </label>
+  <label>漢字の名
+    <input type="text" id="kname2" placeholder="例: 太郎" />
+  </label>
+  <label>カナの姓
+    <input type="text" id="yname1" placeholder="例: ヤマダ" />
+  </label>
+  <label>カナの名
+    <input type="text" id="yname2" placeholder="例: タロウ" />
+  </label>
+
+  <hr />
+
+  <h2>生年月日</h2>
+  <!-- 生年月日 -->
+  <label>生年月日（年-月-日）
+    <input type="text" id="ybirth" placeholder="例: 1991" />
+    <input type="text" id="mbirth" placeholder="例: 04" />
+    <input type="text" id="dbirth" placeholder="例: 15" />
+  </label>
+
+  <hr />
+  <h2>住所</h2>
+  <!-- 郵便番号 -->
+  <label>郵便番号
+    <input type="text" id="gyubin1" placeholder="例: 123" />
+    <input type="text" id="gyubin2" placeholder="例: 4567" />
+  </label>
+
+    <!-- 都道府県（入力は都道府県名、例："東京都"） -->
+    <label>都道府県
+        <input type="text" id="gken" placeholder="例: 東京都" />
+    </label>
+
+  <!-- 住所 -->
+  <label>市区郡・地名・番地
+    <input type="text" id="gadrs1" placeholder="例: 東京都新宿区西新宿１−１−１（全角のみ）" />
+  </label>
+  <label>アパート・マンション名・番号
+    <input type="text" id="gadrs2" placeholder="例: サンプルマンション１０１" />
+  </label>
+
+  <hr />
+  <h2>連絡先</h2>
+  <!-- 電話番号 -->
+  <label>電話番号
+    <input type="text" id="gtel1" placeholder="例: 03" />
+    <input type="text" id="gtel2" placeholder="例: 1234" />
+    <input type="text" id="gtel3" placeholder="例: 5678" />
+  </label>
+
+  <hr />
+
+  <!-- 携帯電話番号 -->
+  <label>携帯電話番号
+    <input type="text" id="kttel1" placeholder="例: 090" />
+    <input type="text" id="kttel2" placeholder="例: 1234" />
+    <input type="text" id="kttel3" placeholder="例: 5678" />
+  </label>
+
+  <hr />
+
+    <div id="ktelContainer">
+        <!-- 携帯電話番号 (追加：ktel) -->
+        <label>電話番号（休暇中）
+            <input type="text" id="ktel1" placeholder="例: 080" />
+            <input type="text" id="ktel2" placeholder="例: 5678" />
+            <input type="text" id="ktel3" placeholder="例: 9012" />
+        </label>
+        <hr />
+    </div>
+
+
+  <!-- E-mailアドレス（確認用） -->
+  <label>E-mailアドレス
+    <input type="text" id="account1" placeholder="例: sample" />
+    <input type="text" id="domain1" placeholder="例: example.com" />
+  </label>
+  <label>E-mailアドレス（確認用）
+    <input type="text" id="account2" placeholder="例: sample2" />
+    <input type="text" id="domain2" placeholder="例: example.com" />
+  </label>
+
+  <!-- 携帯アドレス（確認用） -->
+  <label>携帯アドレス(任意)
+    <input type="text" id="account3" placeholder="例: mobile" />
+    <input type="text" id="domain3" placeholder="例: docomo.ne.jp" />
+  </label>
+  <label>携帯アドレス（確認用）
+    <input type="text" id="account4" placeholder="例: mobile2" />
+    <input type="text" id="domain4" placeholder="例: softbank.ne.jp" />
+  </label>
+
+  <hr />
+    <h2>大学/大学院/etc</h2>
+    <!-- 学校種別を選択肢で入力 -->
+    <label>学校種別を選択
+        <select id="gkbnSelect">
+          <option value="">-- 選択してください --</option>
+          <option value="大学">大学</option>
+          <option value="大学院(修士)">大学院(修士)</option>
+          <option value="大学院(博士)">大学院(博士)</option>
+          <option value="短期大学">短期大学</option>
+          <option value="高等専門学校">高等専門学校</option>
+          <option value="外国大学日本校">外国大学日本校</option>
+          <option value="外国大学">外国大学</option>
+        </select>
+      </label>
+    
+
+      <!-- 頭文字（ひらがな50音）の選択肢 -->
+  <label>学校頭文字（ひらがな）を選択
+    <select id="gonSelect">
+      <option value="">--選択--</option>
+      <!-- あ行 -->
+      <option value="あ">あ</option>
+      <option value="い">い</option>
+      <option value="う">う</option>
+      <option value="え">え</option>
+      <option value="お">お</option>
+      <!-- か行 -->
+      <option value="か">か</option>
+      <option value="き">き</option>
+      <option value="く">く</option>
+      <option value="け">け</option>
+      <option value="こ">こ</option>
+      <!-- さ行 -->
+      <option value="さ">さ</option>
+      <option value="し">し</option>
+      <option value="す">す</option>
+      <option value="せ">せ</option>
+      <option value="そ">そ</option>
+      <!-- た行 -->
+      <option value="た">た</option>
+      <option value="ち">ち</option>
+      <option value="つ">つ</option>
+      <option value="て">て</option>
+      <option value="と">と</option>
+      <!-- な行 -->
+      <option value="な">な</option>
+      <option value="に">に</option>
+      <option value="ぬ">ぬ</option>
+      <option value="ね">ね</option>
+      <option value="の">の</option>
+      <!-- は行 -->
+      <option value="は">は</option>
+      <option value="ひ">ひ</option>
+      <option value="ふ">ふ</option>
+      <option value="へ">へ</option>
+      <option value="ほ">ほ</option>
+      <!-- ま行 -->
+      <option value="ま">ま</option>
+      <option value="み">み</option>
+      <option value="む">む</option>
+      <option value="め">め</option>
+      <option value="も">も</option>
+      <!-- や行 -->
+      <option value="や">や</option>
+      <option value="ゆ">ゆ</option>
+      <option value="よ">よ</option>
+      <!-- ら行 -->
+      <option value="ら">ら</option>
+      <option value="り">り</option>
+      <option value="る">る</option>
+      <option value="れ">れ</option>
+      <option value="ろ">ろ</option>
+      <!-- わ行 + を + ん -->
+      <option value="わ">わ</option>
+      <option value="を">を</option>
+      <option value="ん">ん</option>
+    </select>
+  </label>
+
+  <label>大学所在地を選択
+  <select id="dkenSelect">
+    <option value="">--選択--</option>
+    <option value="北海道">北海道</option>
+    <option value="青森県">青森県</option>
+    <option value="岩手県">岩手県</option>
+    <option value="宮城県">宮城県</option>
+    <option value="秋田県">秋田県</option>
+    <option value="山形県">山形県</option>
+    <option value="福島県">福島県</option>
+    <option value="茨城県">茨城県</option>
+    <option value="栃木県">栃木県</option>
+    <option value="群馬県">群馬県</option>
+    <option value="埼玉県">埼玉県</option>
+    <option value="千葉県">千葉県</option>
+    <option value="東京都">東京都</option>
+    <option value="神奈川県">神奈川県</option>
+    <option value="新潟県">新潟県</option>
+    <option value="富山県">富山県</option>
+    <option value="石川県">石川県</option>
+    <option value="福井県">福井県</option>
+    <option value="山梨県">山梨県</option>
+    <option value="長野県">長野県</option>
+    <option value="岐阜県">岐阜県</option>
+    <option value="静岡県">静岡県</option>
+    <option value="愛知県">愛知県</option>
+    <option value="三重県">三重県</option>
+    <option value="滋賀県">滋賀県</option>
+    <option value="京都府">京都府</option>
+    <option value="大阪府">大阪府</option>
+    <option value="兵庫県">兵庫県</option>
+    <option value="奈良県">奈良県</option>
+    <option value="和歌山県">和歌山県</option>
+    <option value="鳥取県">鳥取県</option>
+    <option value="島根県">島根県</option>
+    <option value="岡山県">岡山県</option>
+    <option value="広島県">広島県</option>
+    <option value="山口県">山口県</option>
+    <option value="徳島県">徳島県</option>
+    <option value="香川県">香川県</option>
+    <option value="愛媛県">愛媛県</option>
+    <option value="高知県">高知県</option>
+    <option value="福岡県">福岡県</option>
+    <option value="佐賀県">佐賀県</option>
+    <option value="長崎県">長崎県</option>
+    <option value="熊本県">熊本県</option>
+    <option value="大分県">大分県</option>
+    <option value="宮崎県">宮崎県</option>
+    <option value="鹿児島県">鹿児島県</option>
+    <option value="沖縄県">沖縄県</option>
+  </select>
+</label>
+
+  <hr />
+
+      <h2>学部/学科/文理区分</h2>
+    <!-- ユーザーが学部名をテキスト入力する欄 -->
+    <label>学部名
+        <input type="text" id="gkbcdInput" placeholder="例: 法学部" />
+      </label>
+      <!-- 学部名 (テキスト) -->
+      <label>学科名
+        <input type="text" id="gkkcdInput" placeholder="例: 環境情報学科" />
+      </label>
+      <!-- 文理区分 (select) -->
+      <label>文理区分
+        <select id="sBrkbnSelect">
+          <option value="">--選択--</option>
+          <option value="文系">文系</option>
+          <option value="理系">理系</option>
+        </select>
+      </label>
+    
+      <hr />
+
+  <button id="saveButton">保存</button>
+
+  <script src="popup.js"></script>
+</body>
+</html>
